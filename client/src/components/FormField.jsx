@@ -1,39 +1,73 @@
+import React, { useState } from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 const FormField = ({
-  labelName,
-  type,
-  name,
+  type = "text",
+  title,
+  state,
   placeholder,
-  value,
-  handleChange,
-  isSurpriseMe,
-  handleSurpriseMe,
-}) => (
-  <div>
-    <div className="flex items-center gap-2 mb-2">
-      <label htmlFor={name} className="block text-sm font-medium text-gray-900">
-        {labelName}
-      </label>
-      {isSurpriseMe && (
-        <button
-          type="button"
-          onClick={handleSurpriseMe}
-          className="font-semibold text-xs bg-[#EcECF1] py-1 px-2 rounded-[5px] text-black"
-        >
-          Surprise me
-        </button>
+  isTextArea = false,
+  errorMessage = "",
+  isRequired = false,
+  autocapitalize = false,
+  setState,
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
+    <div className="flex-start flex-col w-full gap-4">
+      {title && <label className="w-full">{title}</label>}
+      {errorMessage && <span className=" text-red-600">{errorMessage}</span>}
+
+      {isTextArea ? (
+        <textarea
+          placeholder={placeholder}
+          required={isRequired}
+          value={state}
+          className="form_field-input"
+          rows={5}
+          onChange={(e) => setState(e.target.value)}
+        />
+      ) : (
+        <>
+          {type === "password" ? (
+            <div className="w-full flex items-center relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder={placeholder}
+                required={isRequired}
+                value={state}
+                autoCapitalize={autocapitalize ? "words" : "off"}
+                className={`form_field-input`}
+                onChange={(e) => setState(e.target.value)}
+              />
+              <button
+                type="button"
+                className="absolute right-0 mx-3"
+                onClick={() => {
+                  setShowPassword(!showPassword);
+                }}
+              >
+                {state &&
+                  (showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />)}
+              </button>
+            </div>
+          ) : (
+            <input
+              type={type || "text"}
+              placeholder={placeholder}
+              required={isRequired}
+              value={state}
+              autoCapitalize={autocapitalize ? "words" : "off"}
+              className={`form_field-input ${autocapitalize && "capitalize"}`}
+              onChange={(e) => setState(e.target.value)}
+            />
+          )}
+        </>
       )}
     </div>
-    <input
-      type={type}
-      id={name}
-      name={name}
-      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#6469ff] focus:border-[#6469ff] outline-none block w-full p-3"
-      placeholder={placeholder}
-      value={value}
-      onChange={handleChange}
-      required
-    />
-  </div>
-);
+  );
+};
 
 export default FormField;

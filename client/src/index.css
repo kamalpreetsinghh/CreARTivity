@@ -3,7 +3,34 @@
 @tailwind utilities;
 
 * {
-  font-family: "Inter", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --primary-color: rgb(245, 0, 86);
+
+  --background-color: rgb(255, 255, 255);
+  --text-color: rgb(0, 0, 0);
+  --footer-background-color: #fafafb;
+  --tab-selected-color: #f3f3f4;
+  --divider-color: rgb(235 234 234);
+  --form-background-color: #f2f4f5;
+  --text-grey-color: rgb(86, 86, 86);
+}
+
+[data-theme="dark"] {
+  --background-color: rgb(0, 0, 0);
+  --text-color: rgb(255, 255, 255);
+  --footer-background-color: #0d0d0d;
+  --tab-selected-color: #161616;
+  --divider-color: #1e1e1e;
+  --form-background-color: #1c1c1c;
+  --text-grey-color: rgb(156 163 175);
+}
+
+.app {
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 @media screen and (min-width: 480px) {
@@ -20,4 +47,54 @@
 .prompt::-webkit-scrollbar-thumb {
   background-color: #666e75;
   border-radius: 5px;
+}
+
+.head_text {
+  @apply mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15];
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-rose-500 via-pink-700 to-pink-800 bg-clip-text text-transparent;
+}
+
+.desc {
+  @apply mt-5 text-lg sm:text-xl max-w-2xl font-light;
+}
+
+button {
+  @apply transition-all text-center text-sm font-bold flex items-center justify-center;
+}
+
+.rounded-button {
+  @apply button;
+  @apply py-2 px-5 rounded-full text-white;
+}
+
+.primary-button {
+  @apply rounded-button;
+  background-color: var(--primary-color);
+}
+
+.form-button {
+  @apply transition-all text-center font-semibold flex items-center justify-center 
+  py-2 px-5 rounded-full text-white;
+  background-color: var(--primary-color);
+}
+
+.button:hover,
+.rounded-button:hover,
+.primary-button:hover,
+.form-button:hover {
+  color: var(--background-color);
+  background-color: var(--text-color);
+}
+
+/* Form Field */
+.form_field-input {
+  @apply w-full border outline-0 rounded-xl p-4;
+  background-color: var(--form-background-color);
+}
+
+.form_field-input:focus {
+  border-color: var(--text-grey-color);
 }
